@@ -1,27 +1,24 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import json
-from google.cloud import bigquery
 import streamlit as st
 
 st.title('Safe-O-Meter - Your guide to safe driving')
 
-@st.cache()
-def get_credentials():
-    with open('dsi-team-project-75bf7059c640.json','r') as json_file:
-        creds = json.load(json_file)
-    return creds
+st.header('Oveview')
+st.header('EDA')
+st.header('Model')
+st.sidebar.selectbox('State', ['CA', 'FL', 'SC'])
 
+@st.cache
+def load_data():
+    accidents_df_1 = pd.read_csv('./US_Accidents_CleanedUp_Jan26-1.csv.gz')
+    accidents_df_2 = pd.read_csv('./US_Accidents_CleanedUp_Jan26-2.csv.gz')
+    accidents_df_3 = pd.read_csv('./US_Accidents_CleanedUp_Jan26-3.csv.gz')
+    accidents_df_4 = pd.read_csv('./US_Accidents_CleanedUp_Jan26-4.csv.gz')
+    accidents_df_5 = pd.read_csv('./US_Accidents_CleanedUp_Jan26-5.csv.gz')
+    return pd.concat([accidents_df_1, accidents_df_2, accidents_df_3, accidents_df_4, accidents_df_5], axis=0)
 
-@st.cache()
-def get_count_by_hour():
-    creds = get_credentials()
-    query = """
-    SELECT start_hour, count(*) FROM `dsi-team-project.accidents.accidents` group by start_hour
-    """
-    accidents = pd.read_gbq(query, project_id=creds['project_id'], reauth = True)
-    return accidents
+accidents_df = load_data()
+state_count_df = pd.DataFrame(accidents_df['state'].value_counts().head(15))
 
-st.write('Accidents by Hour of Accident')
-st.bar_chart(get_count_by_hour())
+st.bar_chart(state_count_df)
