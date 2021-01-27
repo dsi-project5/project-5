@@ -11,8 +11,8 @@ st.sidebar.selectbox('State', ['CA', 'FL', 'SC'])
 
 @st.cache
 def load_data():
-    accidents_df_1 = pd.read_csv('./US_Accidents_CleanedUp_Jan26-1.csv.gz')
-    accidents_df_2 = pd.read_csv('./US_Accidents_CleanedUp_Jan26-2.csv.gz')
+    accidents_df_1 = pd.read_csv('./data/US_Accidents_CleanedUp_Jan26-1.csv.gz')
+    accidents_df_2 = pd.read_csv('./data/US_Accidents_CleanedUp_Jan26-2.csv.gz')
     #accidents_df_3 = pd.read_csv('./US_Accidents_CleanedUp_Jan26-3.csv.gz')
     #accidents_df_4 = pd.read_csv('./US_Accidents_CleanedUp_Jan26-4.csv.gz')
     #accidents_df_5 = pd.read_csv('./US_Accidents_CleanedUp_Jan26-5.csv.gz')
