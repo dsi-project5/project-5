@@ -1,180 +1,180 @@
-# ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Project 5: Group Project
+# Problem Statement
 
-## The work
+# Objectives
 
-For this project, you will be doing work that focuses on social impact.
+# Process
 
-The prompts are there to help jump-start your ideation process. If you would like to change or combine prompts, that's fine! If you want to find your own idea, even better. **Consult your instructor(s) for final approval before getting started.**  
+# Notable Findings
 
-Remember to start with a good problem statement!
+# Dataset Summary
 
-## The Data
+**The United States Accident Dataset** is a nationwide collection of accident data from **49 states**. It contains over **4 million samples** occuring between **February of 2016** and **December of 2019.** 
 
-Some prompts have links to data sources, some don't. It's your responsibility to gather and clean your data. For most projects, this will be the bulk of your work.Start early!
+This dataset was initially created and introduced as a scholarly publication by professors and Phd students at Ohio State University. It was then presented at the International Conference on Advances in Geographic Information Systems in 2019. 
 
-Inspiration for several prompts came from [Data is Plural](https://tinyletter.com/data-is-plural).
+You can find the publication here: https://arxiv.org/abs/1906.05409
+You can find more about this dataset here: https://smoosavi.org/datasets/us_accidents
 
-## Prompts
 
-### Aviation Accidents
+**Citations:**
 
-The National Transportation Safety Board (NTSB) [tracks](https://www.ntsb.gov/_layouts/ntsb.aviation/index.aspx) all civilian aviation accidents (and "incidents") going back to 1962.
+Moosavi, Sobhan, Mohammad Hossein Samavatian, Srinivasan Parthasarathy, and Rajiv Ramnath. “A Countrywide Traffic Accident Dataset.”, arXiv preprint arXiv:1906.05409 (2019).
 
-### Center for Disease Control
+Moosavi, Sobhan, Mohammad Hossein Samavatian, Srinivasan Parthasarathy, Radu Teodorescu, and Rajiv Ramnath. “Accident Risk Prediction based on Heterogeneous Sparse Data: New Dataset and Insights.” In proceedings of the 27th ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems, ACM, 2019.
 
-The Center for Disease Control has several datasets:
-- [Vaccinations](https://data.cdc.gov/browse?category=Vaccinations)
-- [Smoking and Tobacco Use](https://data.cdc.gov/browse?category=Smoking+%26+Tobacco+Use)
-- [COVID-19](https://data.cdc.gov/browse?tags=covid-19)
 
-### Economic Data
+# Data Dictionary
 
-If you're interested in a project focused on the economy, the Bureau of Labor Statistics (BLS) has [several datasets](https://www.bls.gov/data/) ranging from employment to inflation.
+Also located here: https://smoosavi.org/datasets/us_accidents
 
-### Voter Fraud (or lack thereof)
-The Brookings Institute had an [interesting article](https://www.brookings.edu/blog/fixgov/2020/06/02/low-rates-of-fraud-in-vote-by-mail-states-show-the-benefits-outweigh-the-risks/) on voter fraud. Although no datasets are provided, there are several links to sources where you might be able to find some.
+Index| Attribute | Description | Nullable |
+1 | ID | This is a unique identifier of the accident record. | No |
+2 | Source | Indicates source of the accident report (i.e. the API which reported the accident.). | No |
+3 | TMC | A traffic accident may have a Traffic Message Channel (TMC) code which provides more detailed description of the event. | Yes |
+4 | Severity | Shows the severity of the accident, a number between 1 and 4, where 1 indicates the least impact on traffic (i.e., short delay as a result of the accident) and 4 indicates a significant impact on traffic (i.e., long delay). | No |
+5 | Start_Time | Shows start time of the accident in local time zone. | No |
+6 | End_Time | Shows end time of the accident in local time zone. End time here refers to when the impact of accident on traffic flow was dismissed. | No |
+7 | Start_Lat | Shows latitude in GPS coordinate of the start point. | No |
+8 | Start_Lng | Shows longitude in GPS coordinate of the start point. | No |
+9 | End_Lat | Shows latitude in GPS coordinate of the end point. | Yes |
+10 | End_Lng | Shows longitude in GPS coordinate of the end point. | Yes |
+11 | Distance(mi) | The length of the road extent affected by the accident. | No |
+12 | Description | Shows natural language description of the accident. | No | 
+13 | Number | Shows the street number in address field. | Yes |
+14 | Street | Shows the street name in address field. | Yes |
+15 | Side | Shows the relative side of the street (Right/Left) in address field. | Yes |
+16 | City | Shows the city in address field. | Yes |
+17 | County | Shows the county in address field. | Yes |
+18 | State | Shows the state in address field. | Yes |
+19 | Zipcode | Shows the zipcode in address field. | Yes |
+20 | Country | Shows the country in address field. | Yes |
+21 | Timezone | Shows timezone based on the location of the accident (eastern, central, etc.). | Yes |
+22 | Airport_Code | Denotes an airport-based weather station which is the closest one to location of the accident. | Yes |
+23 } Weather_Timestamp | Shows the time-stamp of weather observation record (in local time). | Yes |
+24 | Temperature(F) | Shows the temperature (in Fahrenheit). | Yes |
+25 | Wind_Chill(F) | Shows the wind chill (in Fahrenheit). | Yes |
+26 | Humidity(%) | Shows the humidity (in percentage). | Yes |
+27 | Pressure(in) | Shows the air pressure (in inches). | Yes |
+28 | Visibility(mi) | Shows visibility (in miles). | Yes |
+29 | Wind_Direction | Shows wind direction. | Yes |
+30 | Wind_Speed(mph) | Shows wind speed (in miles per hour). | Yes |
+31 | Precipitation(in) | Shows precipitation amount in inches, if there is any. | Yes |
+32 | Weather_Condition | Shows the weather condition (rain, snow, thunderstorm, fog, etc.) | Yes |
+33 | Amenity | A POI annotation which indicates presence of amenity in a nearby location. | No |
+34 | Bump | A POI annotation which indicates presence of speed bump or hump in a nearby location. | No |
+35 | Crossing | A POI annotation which indicates presence of crossing in a nearby location. | No
+36 | Give_Way | A POI annotation which indicates presence of give_way in a nearby location. | No | 
+37 | Junction | A POI annotation which indicates presence of junction in a nearby location. | No | 
+38 | No_Exit | A POI annotation which indicates presence of no_exit in a nearby location. | No |
+39 | Railway | A POI annotation which indicates presence of railway in a nearby location. | No |
+40 | Roundabout | A POI annotation which indicates presence of roundabout in a nearby location. | No | 
+41 | Station | A POI annotation which indicates presence of station in a nearby location. | No |
+42 | Stop | A POI annotation which indicates presence of stop in a nearby location. | No |
+43 | Traffic_Calming | A POI annotation which indicates presence of traffic_calming in a nearby location. | No |
+44 | Traffic_Signal | A POI annotation which indicates presence of traffic_signal in a nearby location. | No |
+45 | Turning_Loop | A POI annotation which indicates presence of turning_loop in a nearby location. | No
+46 | Sunrise_Sunset | Shows the period of day (i.e. day or night) based on sunrise/sunset. | Yes |
+47 | Civil_Twilight | Shows the period of day (i.e. day or night) based on civil twilight. | Yes |
+48 | Nautical_Twilight | Shows the period of day (i.e. day or night) based on nautical twilight. | Yes |
+49 | Astronomical_Twilight | Shows the period of day (i.e. day or night) based on astronomical twilight. | Yes | 
 
-### Incarceration
 
-The United States Sentencing Commission (USSC) has [data](https://www.ussc.gov/research/datafiles/commission-datafiles) on federal sentencing going back to 2002.
+# Data Sharing and Workflow
 
-### Environment
+Data Sharing and workflow has been a challenge on this project. With four people in production of this model and all other aspects of the project it was difficult to handle a large dataset that numbered over 3 million samples after cleaning. 
 
-The EPA has data on [air quality](https://cfpub.epa.gov/airnow/index.cfm?action=airnow.main), [precipitation](https://edg.epa.gov/metadata/catalog/search/resource/details.page?uuid={BDD5DD12-4942-41A6-B47D-9C2459F28A0A}), [stream flows](https://edg.epa.gov/metadata/catalog/search/resource/details.page?uuid={0599E344-4682-479D-9334-78FE576E2881}) [and more](https://edg.epa.gov/metadata/catalog/main/home.page).
+We initially attempted to use a combination of Github and Google Colab but had issues with our data being removed from the Colab environment every time a notebook session was closed. This lead us to have to reload the data into Colab at the start of each new session. This become tiresome. We also had challenges with sharing updated or modified CSVs. File size was not only an issue with Colab but even Github with large file sharing extension was unable to handle the size of our data which was around 3.14GB after pushing up to Google Big Query. 
 
-### Protests
+To solve this problem of sharing the data from a common location and allowing us to update our source data we moved to Google Big Query. This was still challenging as we had issues with permissioning all team members to access the data. 
 
-[The Mass Mobilization Project](https://massmobilization.github.io/) provides data on demonstrations worldwide, as well as the government responses.
+#### TO DO: Jaco and Nat Document How they set up. 
 
-### Charity
+Steps to Setup Bigquery
 
-[Data.world](https://data.world/datasets/charity) has several datasets related to altruism: donations, organizations, and volunteerism. 
+* Edit Permissions
+    * Change Each users role to BigQuery User and BigQuery Data Editor.
 
-### CTE
 
-Chronic Traumatic Encephalopathy (CTE) is a horrific brain disease, and occurs [frequently](http://www.bu.edu/articles/2017/cte-former-nfl-players/) in former NFL players. Gathering the data will take some work, but here are some starter links.
-- [Kaggle](https://www.kaggle.com/jpmiller/nfl-competition-data)
-- [Twelve Years of National Football League Concussion Data](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3438866/)
+Choose Project dsi-team-project and then choose open. 
 
-### Politics
-FiveThiryEight is a great news and commentary site for all things data. Their main foci are sports and politics. If you're interested in polling data, check out the "Data" links in the footer on [this page](https://projects.fivethirtyeight.com/2020-election-forecast/).
 
-### Consumer Complaints
+# Kepler.gl Installation and Usage
 
-The Consumer Financial Protection Bureau maintains a [dataset](https://www.consumerfinance.gov/data-research/consumer-complaints/) on customer complaints to various financial organizations in the US.
+Kepler.gl is a powerful open source  and interctive geospatial analysis tool for large-scale data sets. It can be used in the web at kepler.gl and also within Jupyter Notebook.
 
-### Professional Athletes
+### Using Kepler.gl via web
 
-For this prompt, choose a professional sport and compare the distribution of birth months vs the US population. [Sports Reference](https://www.sports-reference.com/) is a good resource for men's and women's sports.
+https://kepler.gl/
 
-h/t [Malcolm Gladwell](https://youtu.be/kspphGOjApk?t=148)
+### Using Kepler.gl via Jupyter
 
-### SEC
+Using Kepler.gl in Jupyter Notebook Documentation:
+https://docs.kepler.gl/docs/keplergl-jupyter
 
-The Securities and Exchange Commission (SEC) is the go-to for [financial data](https://www.sec.gov/edgar/searchedgar/companysearch.html) on US publicly traded companies. The also have [press releases](https://www.sec.gov/litigation/litreleases.shtml) that pertain to various violations.
+An explanatory Medium article walking through Keppler in Jupyter from installation to visualization:
+https://medium.com/vis-gl/introducing-kepler-gl-for-jupyter-f72d41659fbf
 
-### US Treasury
+**Install Kepler.gl**
 
-The US Treasury Department has several datasets related to public debt. The [yield curve](https://www.treasury.gov/resource-center/data-chart-center/interest-rates/pages/textview.aspx?data=yield) is a key indicator of economic health. They also maintain data on the sale of [securities](https://www.treasurydirect.gov/instit/annceresult/annceresult.htm).
+`pip install keplergl`
 
-They also have [auction data](https://home.treasury.gov/services/treasury-auctions) for items that are seized by the IRS.
+**If using Jupter Lab you also need to install the JupyterLab extension.**
 
-### Federal Reserve
+* Jupyter also requires node greater than verion 10.15.0
+* With Homebrew installed on Mac you can install node this way. 
 
-The Fed has a wide variety of [datasets](https://www.federalreserve.gov/datadownload/) related to the economy and financial markets.
+`brew install node@10`
 
-### Still stuck?
+**Finally, install Jupyter Lab extension**
 
-Check out [/r/dataisbeautiful](https://www.reddit.com/r/dataisbeautiful/), [Data.world](https://data.world/) and [Kaggle](https://www.kaggle.com/datasets) for inspiration.
+`jupyter labextenstion install @jupyter-widgets/jupyterlab-manager keplergl-jupyter`
+* Note: We had difficulty getting Keppler to work within Jupyter Lab. After switching to Jupyter Notebook it deployed correctly. 
 
-## Requirements
-For the purposes of a DSI project, you must meet a few technical requirements. They are:
-1)  A `README.md` file in your project repo. Note that `README` files are automatically rendered by GitHub when you view a repo. Your README should contain:
-    - A problem statement.
-    - A succinct formulation of the question your analysis seeks to answer.
-    - A table of contents, which should indicate which notebook or scripts a stakeholder should start with, and a link to an **executive summary**.
-    - A paragraph description of the data you used, plus your data acquisition, ingestion, and cleaning steps.
-    - A short description of software requirements (e.g., `Pandas`, `Scikit-learn`) required by your analysis.
 
-2) Your notebook(s) should be **reproducible** and **error-free**. This means:
-    - You should set a random seed at the start of every notebook. This will ensure that the random numbers generated in your notebook will be the same every time.
-    - You need to provide a _relative path_ to your data, so that if I clone your repo to my machine I can run everything in your repo without error. (You also provide links to any publicly accessible data.)
-    - I should be able to `Restart & Run All` in your notebook(s) and see that the _exact same_ results are reproduced.
-    - To check that everything worked properly, you may consider forking your own repo to a different location on your computer and checking that all notebooks can run properly from top to bottom.
+**Kepler.gl Jupyter Notebook Dependencies**
 
-3) Bear in mind that the value you provide may come from data ingestion, data cleaning, EDA, and/ or a dashboard, etc. While a model may not be immediately apparent, be creative. *Without us telling you exactly what model to build, how could you build a model to increase performance or generate better insights when answering the problem you are facing?*
+* Python greater than version 2
+* ipywidgets greter than version 7
 
-**Questions**: Questions should be sent to your local instructor. **Questions should be specific, brief, and formatted.**
-> This is a good practice to develop! When contacting a boss or a client, you should make your question as easy as possible to answer. Consider the following two examples:
 
-> Example 1: "Hey, I have a question. I'm writing a blog post about TensorFlow but got stuck. This part was confusing: https://www.tensorflow.org/api_docs/python/tf/tanh Can you help?"
+_______________________
 
-> Example 2: "The TensorFlow tanh documentation says 'Computes hyperbolic tangent of x element-wise.' What does hyperbolic tangent mean? The link to see more is: https://www.tensorflow.org/api_docs/python/tf/tanh"
+# Geopandas Installation and Usage
 
-> The first example spends about 20 words before mentioning what is going on. The question "Can you help?" is unspecific. The boss/client is required to go to a link in order to get any information about the problem.
+GeoPandas is an open source project to make working with geospatial data in python easier. GeoPandas extends the datatypes used by pandas to allow spatial operations on geometric types. Geometric operations are performed by shapely. Geopandas further depends on fiona for file access and descartes and matplotlib for plotting. Like it's name suggests, Geopandas is designed to work similarly to the Pandas library but more specifically for Geospatial data. 
 
-> The second example quickly calls out 'Tensorflow tanh documentation,' the explicit quote that is confusing, the explicit question being asked, and a link for additional context. Both examples attempt to get the boss/client/whomever to explain hyperbolic tangent, but imagine how much more quickly someone could answer the second query than the first.
+**Geopandas User Guide**
+https://geopandas.org/
 
-> A helpful way to consider this: When you ask a question, you are basically asking for a favor. You're asking a person to give their time, their brainpower, and their knowledge to you. Every time you ask them to hunt around for more (i.e. they _have_ to travel to a link to get context or they struggle to understand the question you're asking), you're asking a bigger and bigger favor from them.
+**Geopandas Examples Gallery**
+https://geopandas.org/gallery/index.html
 
----
+**Geopandas Install Documentation:**
 
-### Teams
+https://geopandas.org/install.html
 
-Your local instructor will divide your class into teams. Chat with them to find out!
+**install Geopandas**
 
----
+`conda install --channel conda-forge geopandas`
 
-### Presentations
+or 
 
-Each group will present their findings.
+`conda install --channel conda-forge geopandas`
 
-Your presentation must include:
-- A summary of the problem you tackled.
-- A walkthrough of how you set out to solve the problem.
-- A demonstration of your solution. (i.e. You may demonstrate an app you developed, an example of how a model may be used, etc.)
-- A summary of any models you fit and, if applicable, their performance.
-- A brief discussion of limitations to your process. (i.e. data collection issues, missing values)
-- A brief discussion of next steps.
+or 
 
-Presentation requirements:
-- *Consider the audience!*
-- *As with presentations in the "real world," there is no required time limit.* Your presentation should be long enough to cover all relevant aspects of the problem, but not so long that it obscures the takeaways of the presentation. (Your group should likely aim for somewhere between 15 and 20 minutes, but it is possible that you may need a different amount of time for your presentation.)
-- Your presentation must include slides. (Google Slides, PowerPoint, Keynote, etc.)
-- Use visuals that are appropriately scaled and interpretable.
-- Make sure you provide clear conclusions/recommendations that follow logically from your analyses and narrative and answer your data science problem.
+`pip install geopandas`
 
----
+**See Geopandas install documentation above for more information on each install method and for alternative methods of install directly from Github.**
 
-### Consulting Project Feedback + Evaluation
+**GEOPANDAS DEPENDENCIES** Also found in the above Geopandas documentation. 
 
-Data science is a field in which we apply data to solve real-world problems. Therefore, projects and presentations are means by which we can assess your ability to solve real-world problems in a data-driven manner.
+* numpy
+* pandas (version 0.23.4 or later)
+* shapely (interface to GEOS)
+* fiona (interface to GDAL)
+* pyproj (interface to PROJ; version 2.2.0 or later)
 
-When evaluating projects, there are four areas on which your instructors focus.
-1. **Project Requirements: Did you meet all project requirements?** In answering this question, your instructors want to assess how well you met the project requirements as established. These will generally be laid out in the project readme.
+**See install link above for further, optional dependencies:**
 
-2. **Audience: Is your presentation appropriate for the stakeholder?** In answering this question, your instructors want to assess how well you present your results to stakeholders. For example:
-  - Did you frame the problem appropriately for the audience?
-  - Did you use the appropriate level of technical language for your audience?
-  - Did you effectively use your time, or did you encounter an issue such as going significantly beyond or under the allotted time or rushing to conclude the presentation in the allotted time?
-  - Did you present effectively, or were there things that detract from the overall presentation such as not speaking loudly enough for the audience or repeating oneself?
 
-3. **Methods: Are your methods appropriate for solving the problem?** In answering this question, your instructors want to assess how well you have applied data science methodology to the problem at hand. For example:
-  - Did you make well-reasoned modeling choices, or is there clear evidence that the model is inadequate or improper?
-  - Are you able to clearly defend your methodological decisions and results?
-  - Did you generalize your results properly, or were your conclusions/inferences improper or fallacious?
-
-4. **Value: Have you provided value to the stakeholder through clear, data-driven recommendations?** In answering this question, your instructors want to assess the value you provide to the stakeholder as a data scientist. For example:
-  - Did you answer the problem posed to you?
-  - Did you make your recommendations clear, or were the recommendations unclear?
-  - Were your recommendations data-driven and based on the results of your work?
-
-You will earn a score for each of the four areas mentioned above.
-1. Project Requirements: You may earn a score of 0 or 1. You will earn a score of 1 if all project requirements are met. Otherwise, you will earn a score of 0.
-2. Audience: You may earn a score between 0 and 3. A score of 0 indicates that your presentation is inappropriate for the stakeholder. A score of 1 indicates that at least part of your presentation should be non-trivially reworked to be more appropriate for the stakeholder. A score of 2 indicates that there are few to no areas of your presentation that should be reworked. A score of 3 indicates that your presentation is consistently appropriate for the stakeholder and serves as a model for future presentations.
-3. Methods: You may earn a score between 0 and 3. A score of 0 indicates that your methods are inappropriate. A score of 1 indicates that your methods are somewhat inappropriate, that justification for methodological decisions is lacking, and/or that your conclusions do not follow from the methods. A score of 2 indicates that your methods are appropriate, justification is sufficient/strong, and your conclusions follow well from the methods. A score of 3 indicates that your methods are excellent, strongly defended, and serves model for future presentations.
-4. Value: You may earn a score between 0 and 3. A score of 0 indicates that you provide little to no value to the stakeholder. A score of 1 indicates that the value you provide to the stakeholder is substantially less than expected by not answering the problem, not providing clear recommendations to the stakeholder, and/or providing recommendations that were not data-driven. A score of 2 indicates that the value you provide to the stakeholder is on par with the expectation of providing clear, data-driven recommendations that directly answer the problem posed. A score of 3 indicates that the value you provide to the stakeholder is beyond what is expected and serves as a model for future presentations.
-
-Your final grade will be calculated as follows:
-- If any project requirement is not met, the final grade is 'Fail' with a score of 0.
-- If all project requirements are met, then the final grade is 'Pass' with a score calculated by summing the above scores. Therefore, if all project requirements are met, the final score will be between a 1 and 10.
