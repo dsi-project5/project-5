@@ -27,8 +27,8 @@ Moosavi, Sobhan, Mohammad Hossein Samavatian, Srinivasan Parthasarathy, Radu Teo
 
 Also located here: https://smoosavi.org/datasets/us_accidents
 
-Index| Attribute | Description | Nullable |
-1 | ID | This is a unique identifier of the accident record. | No |
+Index|Attribute|Description|Nullable|
+1|ID|This is a unique identifier of the accident record.|No|
 2 | Source | Indicates source of the accident report (i.e. the API which reported the accident.). | No |
 3 | TMC | A traffic accident may have a Traffic Message Channel (TMC) code which provides more detailed description of the event. | Yes |
 4 | Severity | Shows the severity of the accident, a number between 1 and 4, where 1 indicates the least impact on traffic (i.e., short delay as a result of the accident) and 4 indicates a significant impact on traffic (i.e., long delay). | No |
