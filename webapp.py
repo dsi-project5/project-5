@@ -2,6 +2,14 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
+import streamlit.components.v1 as components
+import zipfile
+
+import pickle
+
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+
 st.title('Clare Drive by Road Prophet')
 
 @st.cache
