@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import streamlit as st
+import matplotlib.pyplot as plt
 
 import streamlit.components.v1 as components
 import zipfile
@@ -57,7 +58,6 @@ def get_dummy_col_set(df, prefix):
             return col
 
 def get_twilight(twilight):
-    st.write(twilight)
     switcher={
         'Sunrise/Sunset':'sunrise_sunset',
         'Civil':'civil_twilight',
@@ -65,25 +65,25 @@ def get_twilight(twilight):
         'Astronomical':'astronomical_twilight'
     }
     return switcher.get(twilight)
-#accidents_df = load_data()
+
 
 accidents_test_csv_df = load_test_csv()
 weather_conditions = accidents_test_csv_df['weather_condition'].unique()
 counties = accidents_test_csv_df['county'].unique()
 
-temp = st.sidebar.slider('Select the Temperature (F):', -30, 140, 1)
+temp = st.sidebar.slider('Temperature (F):', -30, 140, 1)
 
-wind_chill = st.sidebar.slider('Select the Wind Chill (F):', -50, 120, 1)
+wind_chill = st.sidebar.slider('Wind Chill (F):', -50, 120, 1)
 
-humidity = st.sidebar.slider('Select the Humidity (%):', 0, 100, 1)
+humidity = st.sidebar.slider('Humidity (%):', 0, 100, 1)
 
-visibility = st.sidebar.slider('Select the Visibility (mi):', 0, 60, 1)
+visibility = st.sidebar.slider('Visibility (mi):', 0, 60, 1)
 
-precipitation = st.sidebar.slider('Select the Precipitation (in):', 0, 10, 1)
+precipitation = st.sidebar.slider('Precipitation (in):', 0, 10, 1)
 
-hour = st.sidebar.slider('Select the Hour:', 0, 23, 1)
+hour = st.sidebar.slider('Hour:', 0, 23, 1)
 
-month = st.sidebar.slider('Select the Month:', 1, 12, 1)
+month = st.sidebar.slider('Month:', 1, 12, 1)
 
 weather_cond = st.sidebar.selectbox('Weather Condition', weather_conditions)
 
@@ -113,59 +113,71 @@ X_test[['sunrise_sunset','civil_twilight', 'nautical_twilight', 'astronomical_tw
 
 # then set the selected one
 twilight_field = get_twilight(twilight)
-st.write(twilight_field + '#')
 X_test[twilight_field] = 1
 
 # First unset current dummary variable
 county_field_to_unset = get_dummy_col_set(X_test, 'county_')
-st.write(county_field_to_unset + '#')
 X_test[county_field_to_unset] = 0
 
 # Then set the new selected variable
 county_field_name = 'county_'+county
-st.write(county_field_name + '#')
 X_test[county_field_name] = 1
 
 # First unset current dummary variable
 weather_cond_field_to_unset = get_dummy_col_set(X_test, 'weather_condition_')
-st.write(weather_cond_field_to_unset + '#')
 X_test[weather_cond_field_to_unset] = 0
 
 # Then set the new selected variable
 weather_cond_field = 'weather_condition_'+weather_cond
-st.write(weather_cond_field + '#')
 X_test[weather_cond_field] = 1
 
 
 # First unset current dummary variable
 hour_field_to_unset = get_dummy_col_set(X_test, 'start_hour_')
-st.write(hour_field_to_unset + '#')
 X_test[hour_field_to_unset] = 0
 
 # Then set the new selected variable
 hour_field_name = 'start_hour_'+str(hour)
-st.write(hour_field_name + '#')
 X_test[hour_field_name] = 1
 
 # First unset current dummary variable
 month_field_to_unset = get_dummy_col_set(X_test, 'month_')
-st.write(month_field_to_unset + '#')
 X_test[month_field_to_unset] = 0
 
 # Then set the new selected variable
 month_field_name = 'month_'+str(month)
-st.write(month_field_name + '#')
+
 X_test[month_field_name] = 1
 
 
 model_that_was_pickled = load_model()
 X_test_sc = scale_test_data(X_test)
 predicted = model_that_was_pickled.predict_proba(X_test_sc)
-predicted_df = pd.DataFrame(data=predicted)
+predicted_df = pd.DataFrame({'Severity': ['Severity 1', 'Severity 2', 'Severity 3', 'Severity 4'], 'Probability':predicted[0]})
 st.subheader('Probabilities of an accident severity')
-st.bar_chart(predicted_df)
-st.write('X_test value', X_test.index)
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+ax.set_xlim(0, 1.0)
+
+# Ref - https://stackoverflow.com/questions/64068659/bar-chart-in-matplotlib-using-a-colormap
+my_cmap = plt.get_cmap("YlOrRd")
+rescale = lambda y: (y - np.min(y)) / (np.max(y) - np.min(y))
+
+ax.barh(predicted_df['Severity'], predicted_df['Probability'], color=my_cmap(rescale(predicted_df['Probability'])))
+st.write(fig)
+
+#st.write('X_test value', X_test.index)
 
 
+
+#st.write(month_field_to_unset + '#')
+#st.write(hour_field_name + '#')
+#st.write(twilight_field + '#')
+#st.write(county_field_to_unset + '#')
+#st.write(month_field_name + '#')
+#st.write(hour_field_to_unset + '#')
+#st.write(weather_cond_field + '#')
+#st.write(weather_cond_field_to_unset + '#')
+#st.write(county_field_name + '#')
 #f = open('./resources/kepler_ca_map.html')
 #components.html(f.read(), width=800, height=800)
