@@ -10,8 +10,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 
 
-st.title('Safe-O-Meter - Your guide to safe driving')
-st.write('[Data Dictionary](#dict)')
+st.title('Clare Drive by Road Prophet')
 
 @st.cache
 def load_data():
@@ -22,6 +21,10 @@ def load_data():
     #accidents_df_5 = pd.read_csv('./US_Accidents_CleanedUp_Jan26-5.csv.gz')
     return pd.concat([accidents_df_1, accidents_df_2], axis=0)
 
+@st.cache
+def load_test_csv():
+    accidents_test_csv = pd.read_csv('./data/selected_test.csv')
+    return accidents_test_csv
 
 @st.cache
 def load_test_data():
@@ -38,41 +41,63 @@ def scale_test_data(X_test):
     X_test_sc = sc.transform(X_test)
     return X_test_sc
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def load_model():
     file = zipfile.ZipFile('./models/randomforest_lmodel.p.zip', 'r')
     return pickle.load(file.open('randomforest_lmodel.p'))
 
+@st.cache(allow_output_mutation=True)
+def load_sample():
+    return test_data.sample()
 
+def get_dummy_col_set(df, prefix):
+    county_cols = [col for col in df.columns if col.startswith(prefix)]
+    for col in county_cols:
+        if (df[col].values == 1):
+            return col
+
+def get_twilight(twilight):
+    st.write(twilight)
+    switcher={
+        'Sunrise/Sunset':'sunrise_sunset',
+        'Civil':'civil_twilight',
+        'Nautical':'nautical_twilight',
+        'Astronomical':'astronomical_twilight'
+    }
+    return switcher.get(twilight)
 #accidents_df = load_data()
 
+accidents_test_csv_df = load_test_csv()
+weather_conditions = accidents_test_csv_df['weather_condition'].unique()
+counties = accidents_test_csv_df['county'].unique()
 
-temp = st.slider('Select the Temperature (F):', -30, 140, 1)
-st.write('Temp ', temp, 'selected')
-wind_chill = st.slider('Select the Wind Chill (F):', -50, 120, 1)
-st.write('Wind Chill ', wind_chill, 'selected')
-humidity = st.slider('Select the Humidity (%):', 0, 100, 1)
-st.write('Humidity ', humidity, '% selected')
-visibility = st.slider('Select the Visibility (mi):', 0, 60, 1)
-st.write('Visibility ', visibility, 'selected')
-precipitation = st.slider('Select the Precipitation (in):', 0, 10, 1)
-st.write('Precipitation ', precipitation, 'selected')
-hour = st.slider('Select the Hour:', 0, 23, 1)
-st.write('Starting Hour ', hour, 'selected')
-month = st.slider('Select the Month:', 0, 23, 1)
-st.write('Starting Month ', month, 'selected')
-weather_cond = st.selectbox('Weather Condition', ['Clear', 'Cloudy', 'Overcast', 'Partly Cloudy', 'Mostly Cloudy', 'Scattered Clouds', 'Light Rain', 'Haze'])
-st.write('Select the Weather Condition ', weather_cond, 'selected')
-crossing = st.checkbox('Crossing')
-junction = st.checkbox('Junction')
-stop_sign = st.checkbox('Stop Sign')
-traffic_signal = st.checkbox('Traffic Signal')
-twilight = st.radio('Select Twilight', ('Sunrise or Sunset', 'Civil Twilight', 'Nautical Twilight', 'Astronomical Twilight'))
-county = st.selectbox('Select the county', ['Los Angeles CA', 'Alameda CA'])
-st.write('County ', county, 'selected')
+temp = st.sidebar.slider('Select the Temperature (F):', -30, 140, 1)
+
+wind_chill = st.sidebar.slider('Select the Wind Chill (F):', -50, 120, 1)
+
+humidity = st.sidebar.slider('Select the Humidity (%):', 0, 100, 1)
+
+visibility = st.sidebar.slider('Select the Visibility (mi):', 0, 60, 1)
+
+precipitation = st.sidebar.slider('Select the Precipitation (in):', 0, 10, 1)
+
+hour = st.sidebar.slider('Select the Hour:', 0, 23, 1)
+
+month = st.sidebar.slider('Select the Month:', 1, 12, 1)
+
+weather_cond = st.sidebar.selectbox('Weather Condition', weather_conditions)
+
+crossing = st.sidebar.checkbox('Crossing')
+junction = st.sidebar.checkbox('Junction')
+stop_sign = st.sidebar.checkbox('Stop Sign')
+traffic_signal = st.sidebar.checkbox('Traffic Signal')
+twilight = st.sidebar.select_slider('Twilight:', options=['Sunrise/Sunset', 'Civil', 'Nautical', 'Astronomical'])
+county = st.sidebar.selectbox('Select the county', counties)
+
+
 
 test_data = load_test_data()
-X_test = test_data.sample()
+X_test = load_sample()
 X_test['temperaturef'] = temp
 X_test['humidity'] = humidity
 X_test['visibilitymi'] = visibility
@@ -83,25 +108,64 @@ X_test['junction'] = junction
 X_test['traffic_signal'] = traffic_signal
 X_test['wind_chillf'] = wind_chill
 
+# first reset all twilight variables
+X_test[['sunrise_sunset','civil_twilight', 'nautical_twilight', 'astronomical_twilight']] = 0
+
+# then set the selected one
+twilight_field = get_twilight(twilight)
+st.write(twilight_field + '#')
+X_test[twilight_field] = 1
+
+# First unset current dummary variable
+county_field_to_unset = get_dummy_col_set(X_test, 'county_')
+st.write(county_field_to_unset + '#')
+X_test[county_field_to_unset] = 0
+
+# Then set the new selected variable
+county_field_name = 'county_'+county
+st.write(county_field_name + '#')
+X_test[county_field_name] = 1
+
+# First unset current dummary variable
+weather_cond_field_to_unset = get_dummy_col_set(X_test, 'weather_condition_')
+st.write(weather_cond_field_to_unset + '#')
+X_test[weather_cond_field_to_unset] = 0
+
+# Then set the new selected variable
+weather_cond_field = 'weather_condition_'+weather_cond
+st.write(weather_cond_field + '#')
+X_test[weather_cond_field] = 1
 
 
-run_model = st.button('Run Model')
-if (run_model):
-    model_that_was_pickled = load_model()
-    X_test_sc = scale_test_data(X_test)
-    predicted = model_that_was_pickled.predict_proba(X_test_sc)
-    st.write('Based on the inputs, here is severity predicted: ', predicted)
-    st.write('X_test value', X_test.index)
+# First unset current dummary variable
+hour_field_to_unset = get_dummy_col_set(X_test, 'start_hour_')
+st.write(hour_field_to_unset + '#')
+X_test[hour_field_to_unset] = 0
+
+# Then set the new selected variable
+hour_field_name = 'start_hour_'+str(hour)
+st.write(hour_field_name + '#')
+X_test[hour_field_name] = 1
+
+# First unset current dummary variable
+month_field_to_unset = get_dummy_col_set(X_test, 'month_')
+st.write(month_field_to_unset + '#')
+X_test[month_field_to_unset] = 0
+
+# Then set the new selected variable
+month_field_name = 'month_'+str(month)
+st.write(month_field_name + '#')
+X_test[month_field_name] = 1
+
+
+model_that_was_pickled = load_model()
+X_test_sc = scale_test_data(X_test)
+predicted = model_that_was_pickled.predict_proba(X_test_sc)
+predicted_df = pd.DataFrame(data=predicted)
+st.subheader('Probabilities of an accident severity')
+st.bar_chart(predicted_df)
+st.write('X_test value', X_test.index)
 
 
 #f = open('./resources/kepler_ca_map.html')
 #components.html(f.read(), width=800, height=800)
-
-
-# Test out jumping to different sections of the same page
-st.markdown("<h1 id='dict'>Data Dictionary</h1>", unsafe_allow_html=True)
-st.write('contents of Data dictionary')
-st.header('Kepler Demo')
-st.write('Kepler Maps')
-st.header('Model Demo')
-st.write('Model demo content')
