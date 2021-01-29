@@ -1,8 +1,8 @@
 # Problem Statement
 
-Every day we have choices. We make tens of thousands of them each and every day. The clothes we wear, how we spend or save our money, how we interact and even the thoughts we have. We make 226.7 decisions each day on food alone[1]. These are small but impactful choices and most of them are made in a nebulous realm of uncertainty without parameters to assist us. 
+Every day we have choices. We make tens of thousands of them each and every day. The clothes we wear, how we spend or save our money, how we interact and even the thoughts we have. We make 226.7 decisions each day on food alone[1](#1). These are small but impactful choices and most of them are made in a nebulous realm of uncertainty without parameters to assist us. 
 
-Luckily there is technology to assists us. This project seeks to reduce the vagueries of one such choice, the route we take to wherever it is that we want to drive. Over 3 million people are injured in car accidents in the U.S. every year and more than 90 die each day[2]. Every time we hit the road we are at risk. To reduce this risk we have decided to create a web app to help you. Clare Drive by Road Prophet is a prediction and route visualization tool that will let you be more aware of your surroundings before you start your trip. You already have tools that tell you where you will expect traffic on your trip but you will now have the ability to see which route is safest for you as well. 
+Luckily there is technology to assists us. This project seeks to reduce the vagueries of one such choice, the route we take to wherever it is that we want to drive. Over 3 million people are injured in car accidents in the U.S. every year and more than 90 die each day[2](#3). Every time we hit the road we are at risk. To reduce this risk we have decided to create a web app to help you. Clare Drive by Road Prophet is a prediction and route visualization tool that will let you be more aware of your surroundings before you start your trip. You already have tools that tell you where you will expect traffic on your trip but you will now have the ability to see which route is safest for you as well. 
 
 Clare Drive, clarevoyance for the road. 
 
@@ -25,6 +25,51 @@ This project was conducted by a team of four data scientists. It was delegated, 
 
 # Notable Findings
 
+**Analysis of Plot of Accidents by State**
+__________________
+
+* Not surprisingly California, Texas and Florida rank highest in number of accidents per state. Afterall, they are the three largest states. **What was surprising, however, is North and South Carolina in the top five.** What factors contribute to such a high number of accidents in these two states?
+
+* Looking at the bottom tier of states appears to confirm the relationship between population and number of accidents. Again, this is not surprising. 
+
+**Analysis of Largest Per Capita Accidents By State Plot**
+__________________
+* Based on the chart of total number of accidents in each state we would expect to see South Carolina and North Carolina in the top 10. Interestingly, California remains in top 3 on a per-capita basis. In light of this it appears that anecdotal evidence is confirmed by the data to be a relatively challenging state to drive in.
+
+* North Dakot and South Dakota remain at the bottom of the charts when accident totals are adjusted on a per-capita basis. **This highlights a potential relationship between population density and accidents.** 
+
+* Possible exceptions to population density, when considering this on a state level, is Oregon and Utah which are both in top-ten on a per-capita basis and have a diverse population of rural and urban populations. **It may be worth looking into these states further to identify per-capita proportions of accident totals on a rural county or city level.**
+_____________________
+
+**Analysis of Plot of Accident Count Per County**
+* Los Angeles County, is a driver-centric metropolis tops this list almost tripling the accident count of Harris County, Texas. Harris County, the third largest county in the United States is the home of Houston and is a sprawling county growing at a 15% clip annually. These values are to be expected at the top of the chart. 
+
+* I would like to do more analysis on population density and accident rates. If you look at the top counties for accident count Many of them are not in the top 50 of population density. So it almost seems as if at some point as population density increases then motor vehicle accidents then decrease. This is likely due to the fact that less people drive and more take mass transit. For instance, Los Angeles County is one of the largest counties by population in the United States but doesn't even break the top 50 counties based on population density. Neither does number two Harris County and number three Orange County ranks 32nd. In fact, Cook County (ranked 19th in population density) is the only county in the list of top 25 of total accident counts that cracks the top 20 via population density. [3](#3)
+* This lack of extreme dense population in the highest accident count counties suggests that larger-by-land-mass, sprawling cities that are more dependent on personal motor vehicles for travel are certainly more risky than densely populated metropolis' that have a good mix of public and private transportation options. However, further research is needed here. [4](#4)
+* This article published on PBS illustrates some of the reason higher-density areas have less crash rates. In a four-year long study at the University of Pennsylvania co-author of the study, Erick Guerra explains that "Fewer roads and slower traffic speeds in Philly explain some of the difference in crash rates. The region’s densest census tracts house 28% of the Delaware Valley’s population, but just 6% of all roadways and far fewer high-speed boulevards or highways. Across the five-county region, roads with average speeds of 45 miles-per-hour witnessed 10 times more deaths on average than roads with 25 miles-per-hour speed limits, the study found."[5](#5)
+* Another study found that severity of crashes increases as areas become more rural. This is partly due to people wearing their seatbelts less in rural areas, higher speeds in which people travel in rural areas, increased per capital impaired driving rates and less proximity to trauma centers that can triage severe accidents. There was also some mention of people in rural areas tending to have lower wages and thus driving older cars with outdated or less existent safety features.[6](#6) 
+_________________________________
+
+**Analysis of Crossing and Severity Plot**
+* The vast majority of all accidents that happened at a crossing had a severity of level 2. 
+___________________
+
+**Analysis of Junction and Severity**
+* Of all the categorical features plotted to this point junction comprises the largest percentage of values accounting for around 8% of the dataset. It appears that the majority of accidents that happen near a highway ramp, exit or entrance have a severity of level 2 and many have a severity of level 3. Very few, if any have level 1 or 4. 
+_______________________
+
+**Analysis of Plot of Station and Severity**
+* It appears that mostly all of the accidents that happen near a public transportation station have a severity level of 2. 
+________
+
+**Analysis of Stop Sign and Severity**
+* It appears that nearly all accidents that happen at a stop sign have a severity of level 2. I feel the amount of incidents reported at stop signs seems low. This may have to do with the integrity of the recording process but it may also be right. No way to know for sure at this point. 
+________
+
+**Analysis of Plot of Traffic Singal and Severity**
+
+Traffic signal has been the largest of the categorical feature variables analayzed against severity to this point. The presence of a traffic signal may reduce the severity of an accident slightly as you can see the proportion of level 2 and level 3 accidents that do not have a traffic signal seems to be smaller than the proportion of level 2 over level 3 accidents that occur when a traffic signal is present. This signifies a benefit to having traffic signals present at an intersection. 
+__________
 
 
 # Dataset Summary
@@ -99,6 +144,16 @@ Also located here: https://smoosavi.org/datasets/us_accidents
 |47 | Civil_Twilight | Shows the period of day (i.e. day or night) based on civil twilight. | Yes |
 |48 | Nautical_Twilight | Shows the period of day (i.e. day or night) based on nautical twilight. | Yes |
 |49 | Astronomical_Twilight | Shows the period of day (i.e. day or night) based on astronomical twilight. | Yes | 
+
+
+**DESCRIPTION OF CRASH SEVERITY RATING**
+
+| Rating | Short Description | Full Description|
+|-----------: | -----------:| -----------:| 
+|4|Fatal Injury Crash|At least one person (driver or passenger killed (within 30 days) by injuries susttained in the crash|
+|3|Major Injury Crash|At least one person injured and admitted to hospital but no fatalities|
+|2|Minor Injury Crash|At least by one person requiring medical care but no fataliites or injuries requiring hospitalization|
+|1|Minimal Injury Crash|At least one person injured (for example minor abrasions/bruises) but no medical attention required and no other more severe injuries|
 
 
 # Data Sharing and Workflow
@@ -213,3 +268,22 @@ or
 
 * [2] Car Accident Statistics 
     * https://www.driverknowledge.com/car-accident-statistics/
+    
+<a id='3'></a>
+* [3] List of most populous counties in the United States
+    * https://en.wikipedia.org/wiki/List_of_the_most_populous_counties_in_the_United_States
+
+<a id='4'></a>
+* [4] List of most densely populated counties in the United States. 
+
+    * https://en.wikipedia.org/wiki/County_statistics_of_the_United_States#Most_densely_populated
+
+<a id='5'></a>
+* [5] City driving often safer than the burbs
+    * https://whyy.org/articles/study-city-driving-often-safer-than-the-burbs/
+
+<a id='6'></a>
+* [6] Car crash death rates highest in remotest rural areas
+    * https://www.reuters.com/article/us-health-rural-autos-crash/car-crash-death-rates-highest-in-remotest-rural-areas-idUSKBN1CA2EW
+
+
