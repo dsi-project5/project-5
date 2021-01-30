@@ -28,6 +28,14 @@ This project was conducted by a team of four data scientists. It was delegated, 
 **Analysis of Plot of Accidents by State**
 __________________
 
+<p align="center">
+  <img src="./us_accidents_visuals/download-3.png" alt="drawing" />
+</p>
+
+<p align="center">
+  <img src="./us_accidents_visuals/download-4.png" alt="drawing" />
+</p>
+
 * Not surprisingly California, Texas and Florida rank highest in number of accidents per state. Afterall, they are the three largest states. **What was surprising, however, is North and South Carolina in the top five.** What factors contribute to such a high number of accidents in these two states?
 
 * Looking at the bottom tier of states appears to confirm the relationship between population and number of accidents. Again, this is not surprising. 
@@ -42,6 +50,15 @@ __________________
 _____________________
 
 **Analysis of Plot of Accident Count Per County**
+
+<p align="center">
+  <img src="./us_accidents_visuals/download-6.png" alt="drawing" />
+</p>
+
+<p align="center">
+  <img src="./us_accidents_visuals/download-5.png" alt="drawing" />
+</p>
+
 * Los Angeles County, is a driver-centric metropolis tops this list almost tripling the accident count of Harris County, Texas. Harris County, the third largest county in the United States is the home of Houston and is a sprawling county growing at a 15% clip annually. These values are to be expected at the top of the chart. 
 
 * I would like to do more analysis on population density and accident rates. If you look at the top counties for accident count Many of them are not in the top 50 of population density. So it almost seems as if at some point as population density increases then motor vehicle accidents then decrease. This is likely due to the fact that less people drive and more take mass transit. For instance, Los Angeles County is one of the largest counties by population in the United States but doesn't even break the top 50 counties based on population density. Neither does number two Harris County and number three Orange County ranks 32nd. In fact, Cook County (ranked 19th in population density) is the only county in the list of top 25 of total accident counts that cracks the top 20 via population density. [3](#3)
@@ -50,13 +67,22 @@ _____________________
 * Another study found that severity of crashes increases as areas become more rural. This is partly due to people wearing their seatbelts less in rural areas, higher speeds in which people travel in rural areas, increased per capital impaired driving rates and less proximity to trauma centers that can triage severe accidents. There was also some mention of people in rural areas tending to have lower wages and thus driving older cars with outdated or less existent safety features.[6](#6) 
 _________________________________
 
+**Analysis of Accidetns by Month**
+* Most accidents occur at the end of the year in months September through December. 
+
+<p align="center">
+  <img src="./us_accidents_visuals/download-3.png" alt="drawing" />
+</p>
+
+_________________________________
+
 **Analysis of Crossing and Severity Plot**
 * The vast majority of all accidents that happened at a crossing had a severity of level 2. 
-___________________
+_________________________________
 
 **Analysis of Junction and Severity**
 * Of all the categorical features plotted to this point junction comprises the largest percentage of values accounting for around 8% of the dataset. It appears that the majority of accidents that happen near a highway ramp, exit or entrance have a severity of level 2 and many have a severity of level 3. Very few, if any have level 1 or 4. 
-_______________________
+_________________________________
 
 **Analysis of Plot of Station and Severity**
 * It appears that mostly all of the accidents that happen near a public transportation station have a severity level of 2. 
@@ -187,6 +213,13 @@ Steps to Setup Google BigQuery (GBQ)
 
 We created 7 different models (RandomForest, a Pipeline RandomForest, LogisticRegression, a Pipeline LogisticRegression, DecisionTree, a Pipeline DecisionTree and a Neural Network).  The RandomForest and DecisionTree models performed exceptionally on the Training data, and well on the test data, however they were extremely overfit as usual.  Unfortunately, after tuning the hyperparameters for RandomForest and DecisionTree through Pipelines, they became much less overfit, however they scored much worse.  The LogisticRegression and LogisticRegression Pipeline had virtually the same scores and were neither overfit nor underfit.  The final and best model, which was the Neural Network model was the best model slightly outperforming the RandomForest model on the test data, but was not overfit.
 
+<p align="center">
+  <img src="./us_accidents_visuals/download-1.png" alt="drawing" />
+</p>
+
+<p align="center">
+  <img src="./us_accidents_visuals/download.png" alt="drawing" />
+</p>
 
 # Kepler.gl Installation and Usage
 
