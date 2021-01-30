@@ -189,9 +189,6 @@ In the end we managed to store all of our notebooks and most of our cleaned data
 * https://www.kaggle.com/sobhanmoosavi/us-accidents?select=US_Accidents_Dec20.csv
 
 
-#### TO DO: Nat Document How you set up streamlit. 
-
-
 # Modeling
 Due to the large size of our data (3.14 GB, 49 features and just over 4.22 million data points), Virtual Machines were necessary to complete the modeling process, as well as pushing our data to Google BigQuery.  This allowed for each team member to pull look at the dataset without having to spend long load times in jupyter notebooks, choose the data they wanted to use, then download it.  This drastically reduced the amount of time spent loading data into different notebooks.
 
@@ -208,6 +205,12 @@ We created 7 different models (RandomForest, a Pipeline RandomForest, LogisticRe
 Model Scores on Training Data |  Model Scores on Testing Data
 :-------------------------:|:-------------------------:
 <img src="./us_accidents_visuals/download-1.png" alt="drawing" />  |  <img src="./us_accidents_visuals/download.png" alt="drawing" />
+
+
+# Model Deployment and WebApp
+Once we've the model, next step was to deploy it on an webapp and publishes it for anyone to use the model's prediction. We used [Streamlit](https://www.streamlit.io/) for app development and deployment. Since the hosting service has a restriction on app size, model was trained with lesser dataset (100K). Model and the test dataset were then pickeled for deployment. A streamlit app was developed to take inputs on important features from user then pass it on to the model for its prediction. Based on user's input, the probabilities of various severities are displayed in the app screen as an output. User can play around with different inputs to understand various aspects that influences the severity of the accident.
+
+Here is the app's URL - https://share.streamlit.io/dsi-project5/project-5/webapp.py
 
 # Kepler.gl Installation and Usage
 
