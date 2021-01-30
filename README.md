@@ -158,11 +158,11 @@ Also located here: https://smoosavi.org/datasets/us_accidents
 
 # Data Sharing and Workflow
 
-Data Sharing and workflow was a challenge on this project. With four people in production of this model and the projects varying other components like advanced visualization with Kepler.gl and Strealit webapp deployment there was difficulty in handling a large dataset that numbered over 3 million samples after cleaning. 
+Data Sharing and workflow was a challenge on this project. With four people in production of this model and the projects varying other components like advanced visualization with Kepler.gl and Strealit webapp deployment there was difficulty in handling a large dataset that numbered over 4.2 million samples after cleaning. 
 
 We initially attempted to use a combination of Github and Google Colab but had issues with our data being removed from the Colab environment every time a notebook session was closed. This lead us to have to reload the data into Colab at the start of each new session. This became tiresome. We also had challenges with sharing updated or modified CSVs. File size was not only an issue with Colab but even Github with large file sharing extension was unable to handle the size of our largest data set which was around 3.14GB.
 
-To solve this problem of sharing the data from a common location and allowing us to update our source data moved to Google Big Query and Google Cloud. There were some initial challenges with permissioning all team members to access the data but they were quickly overcome. At this point one of our team membersJ became our Google Cloud lead and started running virtual environments to do computationally expensive modeling and data transferring. 
+To solve this problem of sharing the data from a common location and allowing us to update our source data moved to Google Big Query and Google Cloud Platform. There were some initial challenges with permissioning all team members to access the data but they were quickly overcome. At this point one of our team members became our Google Cloud lead and started running virtual environments to do computationally expensive modeling and data transferring. 
 
 One of our teammates also became the Github lead by setting up a single repository and managing it so that merge-conflicts and disorganization were kept to a minimum. To be sure, we still had issues, but his work there was crucial in ensuring that we had a managable work flow and we were not too bogged down in fixing errors and dealing with version control issues. 
 
@@ -171,15 +171,21 @@ In the end we managed to store all of our notebooks and most of our cleaned data
 * https://www.kaggle.com/sobhanmoosavi/us-accidents?select=US_Accidents_Dec20.csv
 
 
-#### TO DO: Jaco and Nat Document How they set up. 
+#### TO DO: Nat Document How you set up streamlit. 
 
-Steps to Setup Bigquery
 
-* Edit Permissions
+# Modeling
+Due to the large size of our data (3.14 GB, 49 features and just over 4.22 million data points), Virtual Machines were necessary to complete the modeling process, as well as pushing our data to Google BigQuery.  This allowed for each team member to pull look at the dataset without having to spend long load times in jupyter notebooks, choose the data they wanted to use, then download it.  This drastically reduced the amount of time spent loading data into different notebooks.
+
+Steps to Setup Google BigQuery (GBQ)
+* Create GBQ project
+* Add team members and edit permissions
     * Change Each users role to BigQuery User and BigQuery Data Editor.
+* Create keys for each member
+* Run: accidents_df.to_gbq('accidents.accidents', project_id = creds['project_id'], if_exists = 'append',reauth = True)
+* Create Virtual Machine (created 2 VMs to run multiple models and a neural network simultaneously totaling 32 CPUs, 378GB RAM and 628GB of Hard Drive memory) and linked them to the GBQ the same way for each team member.  This streamlined the modeling process, allowing us to run complex neural networks in a matter of hours as opposed to days, as well as allowing us to work with much larger data sets.  At one point our severity neural network model ended up using 2036 features (after dummying certain columns) and 4.2 million data points (our final model, which performed the best used 2036 features and just over 117,000 data points).
 
-
-Choose Project dsi-team-project and then choose open. 
+We created 7 different models (RandomForest, a Pipeline RandomForest, LogisticRegression, a Pipeline LogisticRegression, DecisionTree, a Pipeline DecisionTree and a Neural Network).  The RandomForest and DecisionTree models performed exceptionally on the Training data, and well on the test data, however they were extremely overfit as usual.  Unfortunately, after tuning the hyperparameters for RandomForest and DecisionTree through Pipelines, they became much less overfit, however they scored much worse.  The LogisticRegression and LogisticRegression Pipeline had virtually the same scores and were neither overfit nor underfit.  The final and best model, which was the Neural Network model was the best model slightly outperforming the RandomForest model on the test data, but was not overfit.
 
 
 # Kepler.gl Installation and Usage
